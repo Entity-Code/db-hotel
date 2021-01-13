@@ -81,27 +81,40 @@ FROM stanze
 Group by
 • Conta gli ospiti raggruppandoli per anno di nascita
 
-
+SELECT COUNT(*), YEAR(date_of_birth) 
+FROM ospiti 
+GROUP BY YEAR(date_of_birth)
 
 ---------------------------
 
 • Somma i prezzi dei pagamenti raggruppandoli per status
 
+SELECT status, SUM(price) AS total_price
+FROM pagamenti
+GROUP BY status
 
 ---------------------------
 
 • Conta quante volte è stata prenotata ogni stanza
 
-
+SELECT stanza_id, COUNT(stanza_id) AS bookings_number 
+FROM prenotazioni 
+GROUP BY stanza_id
 
 ---------------------------
 
 • Fai una analisi per vedere se ci sono ore in cui le prenotazioni sono più frequenti
 
-
+SELECT TIME(created_at) AS bookings_time, COUNT(*) AS total_bookings
+FROM prenotazioni
+GROUP BY TIME(created_at)
+ORDER BY COUNT(*) DESC
 
 ---------------------------
 
 • Quante prenotazioni ha fatto l'ospite che ha fatto più prenotazioni?
 
-
+SELECT TIME(created_at) AS bookings_time, COUNT(*) AS total_bookings
+FROM prenotazioni
+GROUP BY TIME(created_at)
+ORDER BY COUNT(*) DESC
