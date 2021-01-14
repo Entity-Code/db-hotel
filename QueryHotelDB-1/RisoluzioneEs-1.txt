@@ -105,16 +105,17 @@ GROUP BY stanza_id
 
 • Fai una analisi per vedere se ci sono ore in cui le prenotazioni sono più frequenti
 
-SELECT TIME(created_at) AS bookings_time, COUNT(*) AS total_bookings
+SELECT HOUR(created_at) AS 'hour', COUNT(*) AS 'res'
 FROM prenotazioni
-GROUP BY TIME(created_at)
-ORDER BY COUNT(*) DESC
+GROUP BY HOUR(created_at)
+ORDER BY res DESC
 
 ---------------------------
 
 • Quante prenotazioni ha fatto l'ospite che ha fatto più prenotazioni?
 
-SELECT TIME(created_at) AS bookings_time, COUNT(*) AS total_bookings
-FROM prenotazioni
-GROUP BY TIME(created_at)
+SELECT ospite_id, COUNT(*)
+FROM prenotazioni_has_ospiti AS ospiti
+GROUP BY ospite_id
 ORDER BY COUNT(*) DESC
+LIMIT 1
